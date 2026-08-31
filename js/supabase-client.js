@@ -6,8 +6,8 @@
 // =============================================
 
 // Supabase URL and key - UPDATE THESE with your Supabase credentials
-const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
-const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://niuvzotnbjjbxeifkiqx.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_1WIzx5KYsW2RlJyjmURZ3Q_O-KK2NTF';
 const SUPABASE_DEBUG = false;
 
 // Create Supabase client (dynamically load the library)
