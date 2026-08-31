@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Product - Chi Best</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --whatsapp: #25D366;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-icons a {
+            color: var(--dark);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .nav-icons a:hover {
+            color: var(--primary);
+        }
+
+        .cart-count {
+            position: relative;
+        }
+
+        .cart-count span {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--secondary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* Main Container */
+        .request-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 2rem;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            padding: 2rem;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .form-title i {
+            color: var(--primary);
+        }
+
+        .form-subtitle {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-label i {
+            color: var(--secondary);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .form-label .required {
+            color: var(--danger);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-hint {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .input-hint i {
+            font-size: 0.9rem;
+        }
+
+        /* Image Upload */
+        .image-upload-area {
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .image-upload-area:hover {
+            border-color: var(--primary);
+            background: #f0f7ff;
+        }
+
+        .image-upload-area.dragover {
+            border-color: var(--primary);
+            background: #e0edff;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-text span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .upload-hint {
+            font-size: 0.85rem;
+            color: #9ca3af;
+        }
+
+        #imageInput {
+            display: none;
+        }
+
+        /* Image Preview */
+        .image-previews {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .preview-item {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 24px;
+            height: 24px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+
+        .preview-remove:hover {
+            transform: scale(1.1);
+        }
+
+        /* Quantity Selector */
+        .quantity-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            background: var(--light);
+            border-radius: 12px;
+            padding: 0.3rem;
+        }
+
+        .qty-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--dark);
+        }
+
+        .qty-btn:hover:not(:disabled) {
+            background: var(--primary);
+            color: white;
+        }
+
+        .qty-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .qty-input {
+            width: 80px;
+            height: 44px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .qty-input:focus {
+            outline: none;
+        }
+
+        .quantity-hint {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 1.1rem;
+            background: var(--whatsapp);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Info Sidebar */
+        .info-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-card h3 i {
+            color: var(--primary);
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        .info-list li i {
+            color: var(--success);
+            margin-top: 0.2rem;
+        }
+
+        .info-list li p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* WhatsApp Contact Card */
+        .whatsapp-card {
+            background: linear-gradient(135deg, var(--whatsapp) 0%, #128C7E 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .whatsapp-card i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .whatsapp-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .whatsapp-card p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .whatsapp-contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: var(--whatsapp);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-contact-btn:hover {
+            background: #f0fdf4;
+            transform: scale(1.05);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transform: translateX(150%);
+            transition: transform 0.3s;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: var(--success);
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
+
+        /* Form Validation */
+        .form-input.error {
+            border-color: var(--danger);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .request-container {
+                grid-template-columns: 1fr;
+            }
+
+            .info-sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .form-card {
+                padding: 1.5rem;
+            }
+
+            .form-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quantity-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .preview-item {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Chi<span>Best</span></a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="request.html" class="active">Request Product</a></li>
+                <li><a href="index.html#categories">Categories</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <a href="shop.html" title="Search"><i class="fas fa-search"></i></a>
+                <a href="#" title="Wishlist"><i class="fas fa-heart"></i></a>
+                <a href="cart.html" class="cart-count" title="Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount">0</span>
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1><i class="fas fa-box-open"></i> Request a Product from China</h1>
+        <p>Can't find what you're looking for? Let us source it for you!</p>
+    </div>
+
+    <!-- Main Container -->
+    <div class="request-container">
+        <!-- Form Card -->
+        <div class="form-card">
+            <h2 class="form-title"><i class="fas fa-clipboard-list"></i> Product Request Form</h2>
+            <p class="form-subtitle">Fill out the details below and we'll get back to you within 24 hours</p>
+
+            <form id="requestForm">
+                <!-- Customer Information -->
+                <div class="form-section">
+                    <h3 class="section-label"><i class="fas fa-user"></i> Your Information</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Full Name <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="customerName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">WhatsApp Number <span class="required">*</span></label>
+                        <input type="tel" class="form-input" id="whatsappNumber" placeholder="e.g., 08012345678" required>
+                        <p class="input-hint"><i class="fas fa-info-circle"></i> We'll contact you via WhatsApp about your request</p>
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="form-section">
+                    <h3 class="section-label"><i class="fas fa-box"></i> Product Details</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Product Description <span class="required">*</span></label>
+                        <textarea class="form-input form-textarea" id="productDescription" placeholder="Describe the product you're looking for in detail. Include color, size, brand, specifications, etc." required></textarea>
+                        <p class="input-hint"><i class="fas fa-lightbulb"></i> The more details you provide, the better we can source the exact product</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Product Image (Optional)</label>
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p class="upload-text">Drag & drop images here or <span>browse</span></p>
+                            <p class="upload-hint">Supports: JPG, PNG, WEBP (Max 5MB each, up to 3 images)</p>
+                            <input type="file" id="imageInput" accept="image/*" multiple>
+                        </div>
+                        <div class="image-previews" id="imagePreviews"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Product Link (Optional)</label>
+                        <input type="url" class="form-input" id="productLink" placeholder="Paste 1688.com, Taobao, or any product link">
+                        <p class="input-hint"><i class="fas fa-link"></i> If you have a direct link to the product, paste it here</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Desired Quantity <span class="required">*</span></label>
+                        <div class="quantity-section">
+                            <div class="quantity-controls">
+                                <button type="button" class="qty-btn" id="decreaseQty" disabled>
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" class="qty-input" id="quantity" value="1" min="1" max="1000">
+                                <button type="button" class="qty-btn" id="increaseQty">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <span class="quantity-hint">pieces</span>
+                        </div>
+                        <p class="input-hint"><i class="fas fa-shopping-cart"></i> Minimum order quantity may apply depending on the product</p>
+                    </div>
+                </div>
+
+                <!-- Additional Notes -->
+                <div class="form-section">
+                    <h3 class="section-label"><i class="fas fa-sticky-note"></i> Additional Notes</h3>
+                    
+                    <div class="form-group">
+                        <textarea class="form-input form-textarea" id="additionalNotes" placeholder="Any additional information, preferences, or special requests..." style="min-height: 80px;"></textarea>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fab fa-whatsapp"></i> Submit Request via WhatsApp
+                </button>
+            </form>
+        </div>
+
+        <!-- Info Sidebar -->
+        <aside class="info-sidebar">
+            <!-- How It Works -->
+            <div class="info-card">
+                <h3><i class="fas fa-question-circle"></i> How It Works</h3>
+                <ul class="info-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Submit Request</strong>
+                            <p>Fill out the form with product details</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>We Source It</strong>
+                            <p>Our team finds the best options in China</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Get Quote</strong>
+                            <p>Receive pricing and delivery details</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Place Order</strong>
+                            <p>Confirm and we handle the rest</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Benefits -->
+            <div class="info-card">
+                <h3><i class="fas fa-star"></i> Why Request From Us?</h3>
+                <ul class="info-list">
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <p>Access to 1688.com & Taobao suppliers</p>
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <p>Quality verification before shipping</p>
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <p>Competitive wholesale prices</p>
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <p>Consolidated shipping to save costs</p>
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <p>Response within 24 hours</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- WhatsApp Contact -->
+            <div class="whatsapp-card">
+                <i class="fab fa-whatsapp"></i>
+                <h3>Need Help?</h3>
+                <p>Chat with us directly for quick assistance</p>
+                <a href="https://wa.me/2348123456789?text=Hi, I need help with a product request" target="_blank" class="whatsapp-contact-btn">
+                    <i class="fab fa-whatsapp"></i> Chat Now
+                </a>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Request submitted successfully!</span>
+    </div>
+
+    <!-- Product Data -->
+    <script src="products/data.js"></script>
+
+    <!-- Request Page Logic -->
+    <script>
+        // =============================================
+        // CHI BEST - PRODUCT REQUEST PAGE
+        // =============================================
+
+        // Constants
+        const WHATSAPP_NUMBER = '2348123456789';
+        const MAX_IMAGES = 3;
+        const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+        // State
+        let uploadedImages = [];
+
+        // DOM Elements
+        const requestForm = document.getElementById('requestForm');
+        const imageUploadArea = document.getElementById('imageUploadArea');
+        const imageInput = document.getElementById('imageInput');
+        const imagePreviews = document.getElementById('imagePreviews');
+        const quantityInput = document.getElementById('quantity');
+        const decreaseQtyBtn = document.getElementById('decreaseQty');
+        const increaseQtyBtn = document.getElementById('increaseQty');
+        const cartCountElement = document.getElementById('cartCount');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            setupImageUpload();
+            setupQuantityControls();
+            setupFormSubmission();
+        });
+
+        // =============================================
+        // IMAGE UPLOAD
+        // =============================================
+
+        function setupImageUpload() {
+            // Click to upload
+            imageUploadArea.addEventListener('click', () => imageInput.click());
+
+            // File input change
+            imageInput.addEventListener('change', handleImageSelect);
+
+            // Drag and drop
+            imageUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                imageUploadArea.classList.add('dragover');
+            });
+
+            imageUploadArea.addEventListener('dragleave', () => {
+                imageUploadArea.classList.remove('dragover');
+            });
+
+            imageUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                imageUploadArea.classList.remove('dragover');
+                handleImageSelect({ target: { files: e.dataTransfer.files } });
+            });
+        }
+
+        function handleImageSelect(e) {
+            const files = Array.from(e.target.files);
+            
+            files.forEach(file => {
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    showToast('Please select only image files', 'error');
+                    return;
+                }
+
+                // Validate file size
+                if (file.size > MAX_FILE_SIZE) {
+                    showToast('Image size should be less than 5MB', 'error');
+                    return;
+                }
+
+                // Check max images limit
+                if (uploadedImages.length >= MAX_IMAGES) {
+                    showToast(`Maximum ${MAX_IMAGES} images allowed`, 'error');
+                    return;
+                }
+
+                // Read and store image
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    uploadedImages.push({
+                        file: file,
+                        dataUrl: event.target.result,
+                        name: file.name
+                    });
+                    renderImagePreviews();
+                };
+                reader.readAsDataURL(file);
+            });
+
+            // Clear input
+            imageInput.value = '';
+        }
+
+        function renderImagePreviews() {
+            let html = '';
+            uploadedImages.forEach((img, index) => {
+                html += `
+                    <div class="preview-item">
+                        <img src="${img.dataUrl}" alt="Product image ${index + 1}">
+                        <button type="button" class="preview-remove" onclick="removeImage(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            imagePreviews.innerHTML = html;
+        }
+
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            renderImagePreviews();
+        }
+
+        // =============================================
+        // QUANTITY CONTROLS
+        // =============================================
+
+        function setupQuantityControls() {
+            decreaseQtyBtn.addEventListener('click', () => {
+                let qty = parseInt(quantityInput.value) || 1;
+                if (qty > 1) {
+                    quantityInput.value = qty - 1;
+                    updateQuantityButtons();
+                }
+            });
+
+            increaseQtyBtn.addEventListener('click', () => {
+                let qty = parseInt(quantityInput.value) || 1;
+                if (qty < 1000) {
+                    quantityInput.value = qty + 1;
+                    updateQuantityButtons();
+                }
+            });
+
+            quantityInput.addEventListener('change', () => {
+                let qty = parseInt(quantityInput.value) || 1;
+                if (qty < 1) qty = 1;
+                if (qty > 1000) qty = 1000;
+                quantityInput.value = qty;
+                updateQuantityButtons();
+            });
+        }
+
+        function updateQuantityButtons() {
+            const qty = parseInt(quantityInput.value) || 1;
+            decreaseQtyBtn.disabled = qty <= 1;
+            increaseQtyBtn.disabled = qty >= 1000;
+        }
+
+        // =============================================
+        // FORM SUBMISSION
+        // =============================================
+
+        function setupFormSubmission() {
+            requestForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Validate form
+                if (!validateForm()) {
+                    return;
+                }
+
+                // Submit via WhatsApp
+                submitRequestViaWhatsApp();
+            });
+        }
+
+        function validateForm() {
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('whatsappNumber').value.trim();
+            const description = document.getElementById('productDescription').value.trim();
+            const quantity = parseInt(quantityInput.value) || 0;
+
+            // Clear previous errors
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.classList.remove('error');
+            });
+
+            let isValid = true;
+
+            if (!name) {
+                document.getElementById('customerName').classList.add('error');
+                showToast('Please enter your name', 'error');
+                isValid = false;
+            }
+
+            if (!phone) {
+                document.getElementById('whatsappNumber').classList.add('error');
+                showToast('Please enter your WhatsApp number', 'error');
+                isValid = false;
+            }
+
+            if (!description) {
+                document.getElementById('productDescription').classList.add('error');
+                showToast('Please describe the product', 'error');
+                isValid = false;
+            }
+
+            if (quantity < 1) {
+                showToast('Please enter a valid quantity', 'error');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function submitRequestViaWhatsApp() {
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('whatsappNumber').value.trim();
+            const description = document.getElementById('productDescription').value.trim();
+            const link = document.getElementById('productLink').value.trim();
+            const quantity = parseInt(quantityInput.value) || 1;
+            const notes = document.getElementById('additionalNotes').value.trim();
+
+            // Build WhatsApp message
+            let message = '📦 *NEW PRODUCT REQUEST*\n\n';
+            message += '━━━━━━━━━━━━━━━━━━\n';
+            message += `👤 *Customer:* ${name}\n`;
+            message += `📱 *WhatsApp:* ${phone}\n\n`;
+            message += '━━━━━━━━━━━━━━━━━━\n';
+            message += '📦 *PRODUCT DETAILS*\n\n';
+            message += `*Description:*\n${description}\n\n`;
+            
+            if (link) {
+                message += `🔗 *Product Link:*\n${link}\n\n`;
+            }
+            
+            message += `📊 *Quantity:* ${quantity} pieces\n\n`;
+            
+            if (notes) {
+                message += `📝 *Additional Notes:*\n${notes}\n\n`;
+            }
+
+            if (uploadedImages.length > 0) {
+                message += `📷 *Images:* ${uploadedImages.length} image(s) attached\n`;
+                message += '_(Please send the images separately after this message)_\n\n';
+            }
+
+            message += '━━━━━━━━━━━━━━━━━━\n';
+            message += 'Thank you! Please confirm this request.';
+
+            // Open WhatsApp
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+
+            // Show success message
+            showToast('Opening WhatsApp...', 'success');
+
+            // Reset form after a delay
+            setTimeout(() => {
+                if (confirm('Request sent via WhatsApp! Would you like to submit another request?')) {
+                    requestForm.reset();
+                    uploadedImages = [];
+                    renderImagePreviews();
+                    updateQuantityButtons();
+                }
+            }, 1000);
+        }
+
+        // =============================================
+        // UTILITY FUNCTIONS
+        // =============================================
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('chibest_cart') || '[]');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (cartCountElement) {
+                cartCountElement.textContent = totalItems;
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
