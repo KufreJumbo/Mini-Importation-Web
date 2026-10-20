@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Track your order · Chi-Best</title>
+  <meta name="description" content="Track your Chi-Best order with your order number and phone number.">
+  <meta name="theme-color" content="#121418">
+  <link rel="icon" type="image/png" href="images/brand/favicon-64.png">
+  <link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400..800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css">
+  <link rel="stylesheet" href="css/store.css">
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <main id="main" class="page-sections">
+    <div class="container" style="max-width:980px">
+      <section class="track-hero">
+        <span class="eyebrow">Order tracking</span>
+        <h1 class="page-title">Where's my <span class="serif">order?</span></h1>
+        <p class="page-sub" style="margin:10px auto 0">Enter your order number and the phone number you used at checkout.</p>
+        <form class="track-form" data-track-form novalidate>
+          <div class="field"><label for="t-order">Order number</label><input class="input" id="t-order" name="order" placeholder="e.g. CB261020-7K3Q" autocomplete="off" style="text-transform:uppercase"></div>
+          <div class="field"><label for="t-phone">Phone number</label><input class="input" id="t-phone" name="phone" type="tel" inputmode="tel" placeholder="0803 123 4567" autocomplete="tel"></div>
+          <button class="btn btn-dark btn-lg" type="submit" data-track-submit style="height:50px">Track order</button>
+        </form>
+      </section>
+      <div data-result style="margin-top:32px"></div>
+      <div data-mine style="margin-top:28px"></div>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/pages/track.js"></script>
+</body>
+</html>

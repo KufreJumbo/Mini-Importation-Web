@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Help &amp; delivery information · Chi-Best</title>
+  <meta name="description" content="Delivery fees and times, pre-orders, payment options, returns and frequently asked questions for Chi-Best.">
+  <meta name="theme-color" content="#121418">
+  <link rel="icon" type="image/png" href="images/brand/favicon-64.png">
+  <link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400..800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css">
+  <link rel="stylesheet" href="css/store.css">
+</head>
+<body>
+  <div id="app-header"></div>
+  <main id="main">
+    <div class="container">
+      <div class="page-head">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg><span aria-current="page">Help</span></nav>
+        <h1 class="page-title">How can we <span class="serif">help?</span></h1>
+        <p class="page-sub">Everything about delivery, pre-orders, payments and returns. Still stuck? Our team is one WhatsApp message away.</p>
+      </div>
+      <div class="help-layout">
+        <nav class="help-nav" aria-label="Help topics">
+          <a href="#delivery">Delivery &amp; fees</a><a href="#preorders">Pre-orders</a><a href="#payments">Payments</a><a href="#returns">Returns &amp; refunds</a>
+          <a href="#faq">FAQs</a><a href="#contact">Contact us</a><a href="#privacy">Privacy</a><a href="#terms">Terms of sale</a>
+        </nav>
+        <div data-help></div>
+      </div>
+    </div>
+  </main>
+  <div id="app-footer"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    UI.boot({ page: 'help' }).then((ctx) => {
+      const { esc, money, I } = UI;
+      const s = ctx.settings, d = s.delivery || {}, p = s.payments || {};
+      const free = Number(d.freeThreshold) > 0;
+      const wa = UI.waLink('Hello Chi-Best! I have a question.');
+      const section = (id, icon, title, body) => `<section class="help-section" id="${id}"><h2><span class="icon-wrap">${I(icon)}</span>${title}</h2><div class="prose">${body}</div></section>`;
+      const faqs = [
+        ['Are your products original?', 'We describe every item honestly, including the brand where one is shown. Many of our products are quality imports from trusted Chinese manufacturers. If you have a question about a specific item, ask us on WhatsApp before you order.'],
+        ['How do I know my size?', 'Kids\' clothing is listed by age and shoes in EU sizes. Message us with your child\'s age or foot length and we\'ll help you choose.'],
+        ['Can I change or cancel my order?', 'Yes, as long as it hasn\'t been dispatched (for ready stock) or ordered from our supplier (for pre-orders). Message us with your order number.'],
+        ['Do you sell wholesale?', 'Yes. Many of our items are available in bulk at better prices. Send us the product and quantity you need on WhatsApp or through a sourcing request.'],
+        ['Can you source something that isn\'t on the website?', `Absolutely. Send us a link or photo through our <a class="link" href="request.html">request form</a> and we'll quote you a landed price in Naira.`],
+        ['How will I know where my order is?', `Every order gets a tracking page. Enter your order number and phone number on the <a class="link" href="track.html">tracking page</a> at any time. We also send updates on WhatsApp.`]
+      ];
+      document.querySelector('[data-help]').innerHTML = [
+        section('delivery', 'truck', 'Delivery &amp; fees', `<p>We deliver to every state in Nigeria. Ready-stock orders are dispatched from our Lagos store once confirmed.</p>
+          <table class="fee-table"><thead><tr><th>Destination</th><th>Delivery time</th><th>Fee</th></tr></thead><tbody>
+            <tr><td>Lagos</td><td>${esc(d.lagosTime)}</td><td>${money(d.lagosFee)}</td></tr>
+            <tr><td>Other states</td><td>${esc(d.otherTime)}</td><td>${money(d.otherFee)}</td></tr>
+            ${d.pickupEnabled ? `<tr><td>Pickup in Lagos</td><td>Once confirmed</td><td>Free</td></tr>` : ''}
+          </tbody></table>
+          <p>${free ? `<strong>Delivery is free on orders over ${money(d.freeThreshold)}.</strong> ` : ''}Large items such as freezers may need a separate delivery quote, which we'll confirm before dispatch.</p>`),
+        section('preorders', 'plane', 'How pre-orders work', `<p>Items marked <strong>Pre-order</strong> are bought from our suppliers in China after you order, then shipped to Nigeria. They usually arrive in about <strong>${esc(s.preorderLeadTime)}</strong>, depending on the item and shipping schedules.</p>
+          <ul><li>Pay to confirm your pre-order. We place the order with our supplier straight away.</li><li>Every item is checked when it lands in Lagos.</li><li>Follow progress on the tracking page and get updates on WhatsApp.</li></ul>`),
+        section('payments', 'wallet', 'Payment options', `<ul>
+          ${p.bankTransfer !== false ? `<li><strong>Bank transfer:</strong> after you place your order we show our account details. Use your order number as the reference and send the receipt on WhatsApp.</li>` : ''}
+          ${p.payOnDelivery ? `<li><strong>Pay on delivery:</strong> pay by cash or transfer when your order arrives${p.payOnDeliveryLagosOnly ? ' (Lagos deliveries and pickups only)' : ''}.</li>` : ''}
+          <li><strong>Confirm on WhatsApp:</strong> our team contacts you to confirm the details and how you'd like to pay.</li></ul>
+          <p>We will never ask for your card PIN, OTP or online banking password.</p>`),
+        section('returns', 'rotate-ccw', 'Returns &amp; refunds', `<p>If an item arrives damaged, faulty or different from what you ordered, message us on WhatsApp within <strong>${esc(s.returnsDays)} days</strong> of delivery with your order number and photos.</p>
+          <ul><li>We'll arrange a replacement or a refund to your bank account.</li><li>Items must be unused and in their original packaging.</li><li>For hygiene reasons, opened beauty, skincare and underwear items can't be returned unless faulty.</li><li>Custom-sourced items can only be returned if they arrive faulty or don't match the agreed description.</li></ul>`),
+        section('faq', 'help', 'Frequently asked questions', `<div class="accordion">${faqs.map(([q, a]) => `<details class="acc"><summary>${esc(q)}${I('plus')}</summary><div class="acc-body"><p>${a}</p></div></details>`).join('')}</div>`),
+        section('contact', 'message', 'Contact us', `<p>The fastest way to reach us is WhatsApp. We reply during business hours, Monday to Saturday.</p>
+          <p><a class="btn btn-whatsapp" href="${wa}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>Chat on WhatsApp</a></p>
+          <ul>${s.phone ? `<li>Phone: <a class="link" href="tel:${esc(DB.util.digits(s.phone))}">${esc(s.phone)}</a></li>` : ''}${s.email ? `<li>Email: <a class="link" href="mailto:${esc(s.email)}">${esc(s.email)}</a></li>` : ''}<li>Location: ${esc(s.address)}</li></ul>`),
+        section('privacy', 'shield', 'Privacy', `<p>We only collect what we need to deliver your order: your name, phone number, optional email and delivery address. We use it to process your order, send updates and provide support.</p>
+          <p>We never sell your details. Your cart, saved items and checkout details are stored on your own device. To have your order information removed, message us on WhatsApp.</p>`),
+        section('terms', 'file', 'Terms of sale', `<p>Prices are in Nigerian Naira. Delivery fees are shown at checkout. An order is confirmed once we've received payment or confirmed a pay-on-delivery order with you.</p>
+          <p>Pre-order and sourcing timelines are estimates and can be affected by suppliers, airlines and customs. If an item becomes unavailable we'll offer an alternative or a full refund. Product photos are provided by our suppliers; small differences in colour or packaging can occur.</p>`)
+      ].join('');
+      if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
+    });
+  </script>
+</body>
+</html>

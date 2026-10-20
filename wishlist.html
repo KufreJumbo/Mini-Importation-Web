@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Saved items · Chi-Best</title>
+  <meta name="theme-color" content="#121418">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="images/brand/favicon-64.png">
+  <link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400..800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css">
+  <link rel="stylesheet" href="css/store.css">
+</head>
+<body>
+  <div id="app-header"></div>
+  <main id="main" class="page-sections">
+    <div class="container">
+      <div class="page-head">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg><span aria-current="page">Saved items</span></nav>
+        <h1 class="page-title">Saved <span class="serif">items</span></h1>
+        <p class="page-sub" data-sub></p>
+      </div>
+      <div style="padding-top:20px" data-wishlist></div>
+    </div>
+  </main>
+  <div id="app-footer"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    UI.boot({ page: 'wishlist' }).then((ctx) => {
+      const { $, I } = UI;
+      const render = () => {
+        const list = UI.Wish.ids().map((id) => ctx.byId.get(id)).filter(Boolean);
+        $('[data-sub]').textContent = list.length ? `${list.length} item${list.length === 1 ? '' : 's'} saved on this device.` : '';
+        $('[data-wishlist]').innerHTML = list.length
+          ? `<div class="grid-products">${list.map((p) => UI.productCard(p)).join('')}</div>`
+          : `<div class="card"><div class="empty"><div class="empty-art">${I('heart')}</div><h3>No saved items yet</h3><p>Tap the heart on any product to save it here for later.</p><a class="btn btn-dark" href="shop.html">Discover products</a></div></div>`;
+      };
+      // Re-render after the shared wishlist handler has toggled the item.
+      document.addEventListener('click', (e) => { if (e.target.closest('[data-wish]')) setTimeout(render, 0); });
+      window.addEventListener('storage', (e) => { if (e.key === 'chibest.wishlist') render(); });
+      render();
+    });
+  </script>
+</body>
+</html>
